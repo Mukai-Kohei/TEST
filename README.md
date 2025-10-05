@@ -1,36 +1,84 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# AIスクール応募サイト
 
-## Getting Started
+AIスクールの受講希望者がオンラインで簡単に応募・支払いまで完了できる応募サイトです。
 
-First, run the development server:
+## 主な機能
+
+### 一般ユーザー向け
+- ✅ **ランディングページ**: スクール概要、コース紹介、講師紹介
+- ✅ **申込フォーム**: 氏名、メール、電話番号、希望コース入力（バリデーション付き）
+- ✅ **決済機能**: Stripe連携（申込金5,000円）※現在はダミー実装
+- ✅ **申込完了ページ**: 申込ID表示と次のステップの案内
+
+### 管理者向け
+- ✅ **管理者ログイン**: Supabase Authによる認証
+- ✅ **応募一覧**: 全応募データの閲覧・検索
+- ✅ **CSVエクスポート**: 応募データのCSVダウンロード
+
+## 技術スタック
+
+- **フロントエンド**: Next.js 15 (App Router), TypeScript, Tailwind CSS
+- **バックエンド**: Next.js API Routes
+- **データベース**: Supabase (PostgreSQL)
+- **認証**: Supabase Auth
+- **決済**: Stripe (実装予定)
+- **デプロイ**: Vercel (推奨)
+
+## セットアップ手順
+
+### 1. 環境変数の設定
+
+`.env.local` ファイルを作成し、以下の環境変数を設定してください：
+
+```bash
+# Supabase
+NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+SUPABASE_SERVICE_ROLE_KEY=your_supabase_service_role_key
+
+# Stripe (現在未使用)
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=your_stripe_publishable_key
+STRIPE_SECRET_KEY=your_stripe_secret_key
+STRIPE_WEBHOOK_SECRET=your_stripe_webhook_secret
+
+# Application
+NEXT_PUBLIC_APPLICATION_FEE=5000
+NEXT_PUBLIC_APP_URL=http://localhost:3000
+```
+
+### 2. Supabaseプロジェクトの設定
+
+1. [Supabase](https://supabase.com)でプロジェクトを作成
+2. SQL Editorで `../supabase/schema.sql` を実行してテーブルを作成
+3. Authentication > Users から管理者アカウントを作成
+
+### 3. 依存パッケージのインストール
+
+```bash
+npm install
+```
+
+### 4. 開発サーバーの起動
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+ブラウザで [http://localhost:3000](http://localhost:3000) を開いてください。
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 使い方
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### ユーザーフロー
 
-## Learn More
+1. **トップページ**: http://localhost:3000
+2. **申込フォーム**: http://localhost:3000/apply
+3. **申込完了**: http://localhost:3000/apply/success
 
-To learn more about Next.js, take a look at the following resources:
+### 管理者フロー
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. **ログイン**: http://localhost:3000/admin/login
+2. **応募管理**: http://localhost:3000/admin
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## ライセンス
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+MIT
