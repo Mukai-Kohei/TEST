@@ -1,11 +1,12 @@
 import Link from 'next/link'
 import { CheckCircle, Home } from 'lucide-react'
 
-export default function SuccessPage({
-  searchParams,
+export default async function SuccessPage({
+  searchParams: searchParamsPromise,
 }: {
-  searchParams: { id?: string }
+  searchParams: Promise<{ id?: string }>
 }) {
+  const searchParams = await searchParamsPromise;
   return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
       <div className="max-w-md w-full bg-white rounded-xl shadow-md p-8 text-center">

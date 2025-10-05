@@ -5,7 +5,7 @@ export const applicationSchema = z.object({
   email: z.string().email('有効なメールアドレスを入力してください'),
   phone: z.string().regex(/^[0-9\-]+$/, '有効な電話番号を入力してください'),
   course: z.enum(['basic', 'advanced', 'professional'], {
-    errorMap: () => ({ message: 'コースを選択してください' }),
+    message: 'コースを選択してください',
   }),
   message: z.string().optional(),
 })
